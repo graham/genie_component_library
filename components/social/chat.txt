@@ -1,0 +1,139 @@
+<script type='text/javascript'>
+
+ component.on('ready', function() {
+     this.load();
+ });
+
+ component.on('did_load', function() {
+     this.add_message({
+         'message':'Starting chat.',
+         'side':'left'
+     });
+ });
+
+ component.methods({
+     add_message: function(props) {
+         var message = props['message'];
+         var side = props['side'] || 'right';
+         var icon = props['icon'] || 'http://genie.site44.com/graham.png';
+         var result = this.render('chat_template', {
+             'message':message,
+             'icon':icon,
+             'side':side
+         });
+         $(this._target).find('.messages').append(result);
+     }
+ });
+</script>
+
+<template type="text/genie" id="chat_template">
+  <div class='chat_[[v.side]]'>
+    <div class='chat_icon'><img src='[[v.icon]]'></div>
+    <div class='chat_bubble chat_message'>[[v.message]]</div>
+    <div class='clear'> </div>
+  </div>
+</template>
+
+<template type='text/template' id='root'>
+  <div class='chat_window'>
+    <div class='messages'></div>
+  </div>
+</template> 
+
+<style type='text/css'> 
+
+.clear {
+    clear: both;
+}
+
+.chat_window {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: "Gothic", sans-serif;
+    font-size: 12px;
+    padding: 12px;
+}
+
+.chat_log {
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.chat_bubble {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin: 2px;
+    padding: 4px;
+    min-height: 40px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    margin-right: 46px;
+    margin-left: 46px;
+}
+
+.chat_icon {
+    padding:0px;
+    margin:0px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    overflow:hidden;
+}
+
+.chat_left > .chat_icon {
+    margin-top: 4px;
+    float:left;
+}
+
+.chat_left > .chat_message {
+    background-color: rgba(255, 196, 128, 0.2);
+    text-align: left;
+    margin-left: 46px;
+    padding-left: 8px;
+}
+
+.chat_right > .chat_icon {
+    margin-top: 4px;
+    float:right;
+}
+
+.chat_right > .chat_message {
+    background-color: rgba(196, 255, 196, 0.2);
+    text-align: left;
+    margin-right: 46px;
+    padding-left: 8px;
+}
+
+.chat_input {
+    padding: 4px;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    display:none;
+}
+
+.chat_window > .toggle > .left {
+    float:left;
+}
+
+.chat_window > .toggle > .right {
+    float:right;
+}
+
+.chat_window > .toggle > a {
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+}
+
+.toggle a {
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+}
+
+.chat_window > .toggle {
+    display:none;
+    padding-top: 4px;
+    padding-bottom: 10px;
+}
+
+</style> 
