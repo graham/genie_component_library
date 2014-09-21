@@ -1,0 +1,42 @@
+<style type='text/css'> 
+ .counter { 
+   font-size: 50px;
+ }
+</style> 
+
+<script type='text/javascript'>
+ component.on('ready', function() {
+     component.wait(function() {
+         this.set('running', true);
+         this.set('ticks', 0);
+         this.load();
+     }, 1);
+ });
+
+ component.on('did_load', function() {
+     this.tick(1000);
+ });
+
+ component.methods({
+     tick: function(ms) {
+         var sleep = ms || 1000;
+         this.reload();
+         this.wait(function() {
+             var secs = this.get('ticks');
+             this.set('ticks', secs+1);
+             this.tick(sleep);
+         }, sleep);
+     }     
+ });
+</script>
+
+<template type='text/template' id='root'>
+  <div class='counter'>
+    [% if v.ticks == 1 %]
+      [[v.ticks]] second has passed.
+    [% else %] 
+      [[v.ticks]] seconds have passed.
+    [% end %]
+  </div>
+  <span class="icon icon-note" style="width: 24px; padding-top:1px; float:left;"></span>
+</template> 
