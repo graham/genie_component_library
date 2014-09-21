@@ -1,0 +1,12 @@
+<require>
+  <script src='https://pulled.site44.com/lib/codemirror.js' id='codemirror'></script>
+  <link rel="stylesheet" href="https://pulled.site44.com/lib/codemirror.css">
+</require>
+
+<template id='root'>
+  Hello World.
+</template>
+
+<script>
+  component.on('ready', function() { this.load(); })
+</script>
