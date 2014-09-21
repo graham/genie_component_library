@@ -38,9 +38,10 @@ print 'finding components...'
 comps = get_components('components')
 print ''
 
+comps.sort()
 
 print 'saving...',
-f = open('list.json', 'w')
+f = open('build/list.json', 'w')
 f.write(json.dumps({'list':comps}, indent=True))
 f.close()
 print '#done\n'

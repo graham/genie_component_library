@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <script src="build/jquery.js"></script>
+    <script src="build/genie.min.js"></script>
+
+    <script type='text/javascript'>
+     var gc;
+
+     var load_selected_path = function() {
+         var value = $('#chooser_path').val();
+         load_path(value);
+     };
+
+     var load_path = function(url) {
+         if (gc) {
+             gc.unload();
+         }
+
+         genie.mvc.clear_cache();
+         var target = document.getElementById('test');
+         target.innerHTML = 'waiting for load...';
+
+         var children = $("#chooser_path").children();
+         children.each(function(index, value) {
+             if (value.value == url) {
+                 $("#chooser_path").val(value.value);
+             }
+         });
+
+         gc = new genie.mvc.GCComponent({
+             url:url,
+             target:target
+         });
+
+         window.location.hash = url;
+     };
+     
+     var load_list = function() {
+         $.get('build/list.json', function(data) {
+             for(var i=0; i < data['list'].length; i++) {
+                 var o = document.createElement('option');
+                 o.innerText = data['list'][i];
+                 o.value = data['list'][i];
+                 $('#chooser_path').append(o);
+             }
+             var url = 'components/misc/counter.html';
+             if (window.location.hash.length) {
+                 url = window.location.hash.slice(1);
+             }
+             load_path(url);
+         });
+     };
+     
+     $(document).ready(function() {
+         load_list();
+     });
+    </script>
+    <style>
+     #chooser {
+       margin: 0px;
+       position:fixed;
+       bottom: 0px;
+       right: 0px;
+       width: 100%;
+       padding: 8px;
+       border-top: 1px solid rgba(0, 0, 0, 0.4);
+       text-align: right;
+     }
+    </style>
+  </head>
+  
+  <body>
+    <div id='test'>waiting for load...</div>
+
+    <div id='chooser'>
+      <select id='chooser_path'> </select>
+      <input type=button value='Load' onclick='load_selected_path();'>
+    </div>
+  </body>
+
+</html>
