@@ -21,10 +21,8 @@ urllib.urlretrieve(
 
 def get_components(path):
     components = []
-
     for i in os.listdir(path):
         rpath = path + '/' + i
-        print rpath
         if rpath.startswith('.'):
             pass
         elif rpath.endswith('~'):
@@ -33,7 +31,7 @@ def get_components(path):
             components.extend(get_components(rpath))
         elif rpath.endswith('.html') or rpath.endswith('.txt'):
             components.append(rpath)
-
+            print '  found:', rpath
     return components
 
 print 'finding components...'    
@@ -41,8 +39,8 @@ comps = get_components('components')
 print ''
 
 
-print 'saving...'
+print 'saving...',
 f = open('list.json', 'w')
 f.write(json.dumps({'list':comps}, indent=True))
 f.close()
-print '#done'
+print '#done\n'
