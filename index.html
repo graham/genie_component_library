@@ -11,6 +11,11 @@
          load_path(value);
      };
 
+     var show_selected_path = function() {
+         var value = $('#chooser_path').val();
+         open(value, target="_blank");
+     };
+
      var load_path = function(url) {
          if (gc) {
              gc.unload();
@@ -39,11 +44,11 @@
          $.get('build/list.json', function(data) {
              for(var i=0; i < data['list'].length; i++) {
                  var o = document.createElement('option');
-                 o.innerText = data['list'][i];
+                 o.innerHTML = data['list'][i];
                  o.value = data['list'][i];
                  $('#chooser_path').append(o);
              }
-             var url = 'components/misc/counter.html';
+             var url = 'components/misc/counter.txt';
              if (window.location.hash.length) {
                  url = window.location.hash.slice(1);
              }
@@ -65,6 +70,7 @@
        padding: 8px;
        border-top: 1px solid rgba(0, 0, 0, 0.4);
        text-align: right;
+       min-width: 200px;
      }
     </style>
   </head>
@@ -73,6 +79,7 @@
     <div id='test'>waiting for load...</div>
 
     <div id='chooser'>
+      <input type=button value='Show' onclick='show_selected_path();'>
       <select id='chooser_path'> </select>
       <input type=button value='Load' onclick='load_selected_path();'>
     </div>
