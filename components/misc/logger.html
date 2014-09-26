@@ -1,0 +1,65 @@
+<style type='text/css'> 
+ .logger {
+   border: 1px solid rgba(0,0,0,0.2);
+   border-radius: 4px;
+   max-height: 400px;
+   overflow: scroll;
+   
+ }
+
+ .logger > .message {
+   padding: 0px;
+   margin: 0px;
+ }
+
+ .logger > .message > .slug {
+   color: black;
+   margin-left: 200px;
+ }
+
+ .logger > .message > .ts {
+   float: left;
+   width: 200px;
+   margin:auto;
+   color: rgba(0,0,128,0.6);
+   text-align: center;
+   padding-top: 3px;
+   font-size: 10px;
+ }
+</style> 
+
+<script type='text/javascript'>
+ component.on('ready', function() {
+     this.set('messages', []);
+     this.log('Started, good to go, try .log();');
+     this.load();
+ });
+
+ component.methods({
+     log: function(message, type) {
+         var m = this.get('messages');
+         var new_message = {
+             ts:new Date(),
+             slug:message
+         };
+         
+         this.set("messages", [new_message].concat(m));
+         this.reload();
+     }
+ });
+
+</script>
+
+<template type='text/template' id='root'>
+
+  <div class="logger">
+    [% for i in v.messages %]
+      <div class='message'>
+        <div class='ts'>[[ i.ts ]]</div>
+        <div class='slug'>[[ i.slug ]]</div>
+      </div>
+    [% end %]
+  </div>
+
+</template> 
+  
