@@ -31,6 +31,7 @@
 </script>
 
 <template type='text/template' id='root'>
+
   <div class='counter'>
     [% if v.ticks == 1 %]
       [[v.ticks]] second has passed.
@@ -38,5 +39,7 @@
       [[v.ticks]] seconds have passed.
     [% end %]
   </div>
+
   <span class="icon icon-note" style="width: 24px; padding-top:1px; float:left;"></span>
+
 </template> 

@@ -42,16 +42,22 @@
      
      var load_list = function() {
          $.get('build/list.json', function(data) {
+             if ((typeof data) == "string") {
+                 data = JSON.parse(data);
+             }
+
              for(var i=0; i < data['list'].length; i++) {
                  var o = document.createElement('option');
                  o.innerHTML = data['list'][i];
                  o.value = data['list'][i];
                  $('#chooser_path').append(o);
              }
+
              var url = 'components/misc/counter.txt';
              if (window.location.hash.length) {
                  url = window.location.hash.slice(1);
              }
+
              load_path(url);
          });
      };
@@ -71,6 +77,8 @@
        border-top: 1px solid rgba(0, 0, 0, 0.4);
        text-align: right;
        min-width: 200px;
+       background-color: white;
+       z-index: 1000;
      }
     </style>
   </head>

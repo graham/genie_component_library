@@ -38,6 +38,7 @@
  component.methods({
      log: function(message, type) {
          var m = this.get('messages');
+
          var new_message = {
              ts:new Date(),
              slug:message
@@ -47,7 +48,6 @@
          this.reload();
      }
  });
-
 </script>
 
 <template type='text/template' id='root'>
@@ -62,4 +62,3 @@
   </div>
 
 </template> 
-  
