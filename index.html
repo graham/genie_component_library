@@ -14,8 +14,18 @@
      };
 
      var show_selected_path = function() {
+         if (gc){ gc.unload(); }
          var value = $('#chooser_path').val();
-         open(value, target="_blank");
+         $.get(value, function(data) {
+             var d = document.createElement('pre');
+             $(d).css('padding-top', '10px');
+             $(d).css('padding-left', '30px');
+             $(d).css('padding-right', '30px');
+             $(d).css('padding-bottom', '50px');
+             d.innerText = data;
+             $('#test').html('');
+             $('#test').append(d);
+         });
      };
 
      var load_path = function(url) {
