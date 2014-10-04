@@ -22,7 +22,7 @@ if os.environ.get('GENIE_COMPONENT_LIBRARY', False):
 
     else:
         for i in modules:
-            if i.startswith('-'):
+            if i.startswith('-') or i.startswith('.') or i.endswith('~'):
                 continue
 
             fdir = path + i.split('/',1)[0]
