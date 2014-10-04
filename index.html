@@ -2,6 +2,8 @@
   <head>
     <script src="build/jquery.js"></script>
     <script src="build/genie.min.js"></script>
+    <script src="http://fb.me/react-0.11.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.11.2.js"></script>
 
     <script type='text/javascript'>
      var gc;
@@ -32,11 +34,17 @@
              }
          });
 
-         gc = new genie.mvc.GCComponent({
-             url:url,
-             target:target
-         });
-
+         if (url.search('react') != -1) {
+             gc = new genie.mvc.ReactComponent({
+                 url:url,
+                 target:target
+             });
+         } else {
+             gc = new genie.mvc.GCComponent({
+                 url:url,
+                 target:target
+             });
+         }
          window.location.hash = url;
      };
      
