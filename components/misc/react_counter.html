@@ -5,30 +5,42 @@
 </style> 
 
 <script type='text/jsx' id='root'>
-
 /** @jsx React.DOM */
-var Timer = React.createClass({
-  getInitialState: function() {
-    return {secondsElapsed: 0};
-  },
-  tick: function() {
-    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
-  },
-  componentDidMount: function() {
-    this.interval = setInterval(this.tick, 1000);
-  },
-  componentWillUnmount: function() {
-    clearInterval(this.interval);
-  },
-  render: function() {
-    return (
-      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
-    );
-  }
-});
-
- component.on('ready', function() {
+ var HelloMessage = React.createClass({
+     render: function() {
+         return <div>Hello {this.props.name}</div>
+     }
+ });
+ 
+/** @jsx React.DOM */
+ var Timer = React.createClass({
+     getInitialState: function() {
+         return {secondsElapsed: 0};
+     },
+     tick: function() {
+         component.modify('secondsElapsed', function(value) {
+             return value + 1;
+         });
+     },
+     componentDidMount: function() {
+         this.interval = setInterval(this.tick, 1000);
+     },
+     componentWillUnmount: function() {
+         clearInterval(this.interval);
+     },
+     render: function() {
+         return (
+             <div>
+               <div className='counter'>Seconds Elapsed: {this.state.secondsElapsed}</div>
+               <HelloMessage name='Graham'/>
+             </div>
+         );
+     }
+ });
+ 
+ component.on('did_load', function() {
      this.wrap(React.renderComponent(<Timer />, this._target));
  });
+ component.auto_load();
 
 </script>
