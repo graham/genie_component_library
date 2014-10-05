@@ -1,0 +1,76 @@
+<script type='text/jsx' id='root'>
+/** @jsx React.DOM */
+ var TodoList = React.createClass({
+     getInitialState: function() {
+         return {items:[]};
+     },
+     add_message: function(text) {
+         this.setState({'items':[text].concat(this.state.items)});
+     },
+     render: function() {
+         var createItem = function(itemText) {
+             return <li className="todoItem">{itemText}</li>;
+         };
+         return <ul>{this.state.items.map(createItem)}</ul>;
+     }
+ });
+ 
+ var TodoApp = React.createClass({
+     getInitialState: function() {
+         return {text: ''};
+     },
+     onChange: function(e) {
+         this.setState({text: e.target.value});
+     },
+     handleSubmit: function(e) {
+         e.preventDefault();
+         component.controller('list').add_message([this.state.text]);
+         var nextText = '';
+         this.setState({text: nextText});
+     },
+     render: function() {
+         return (
+             <div>
+               <h3>TODO</h3>
+               <form onSubmit={this.handleSubmit}>
+                 <input onChange={this.onChange} value={this.state.text} />
+                 <button>{'Add'}</button>
+               </form>
+               <button onClick={component.boop}>Boop</button>
+             </div>
+         );
+     }
+ });
+ 
+ component.methods({
+     boop: function() {
+         var cont = component.controller('list');
+         var messages = [];
+         for(var i = 0; i < 100; i++) {
+             messages.push('hi: ' + i);
+         }
+         cont.setState({'items':messages.concat(cont.state.items)});
+     },
+     blarg: function() {
+         console.log(this);
+     }
+ });
+
+ component.on('did_load', function() {
+     var root = React.renderComponent(<TodoApp />, this.outlet('root'));
+     var list = React.renderComponent(<TodoList />, this.outlet('test2'));
+
+     this.set_controller('root', root);
+     this.set_controller('list', list);
+
+ });
+ component.auto_load();
+ 
+</script>
+
+<style type='text/css'> 
+ .todoItem {
+   font-size: 20px;
+ }
+</style> 
+

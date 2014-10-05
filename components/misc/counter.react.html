@@ -39,7 +39,7 @@
  });
  
  component.on('did_load', function() {
-     this.wrap(React.renderComponent(<Timer />, this._target));
+     this.wrap(React.renderComponent(<Timer />, this.outlet('root')));
  });
  component.auto_load();
 
