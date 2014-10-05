@@ -44,7 +44,7 @@
          });
      },
      add_button:function(image, cb) {
-         var b = $(this.render('button_template', {image:image}));
+         var b = $(this.render_template('button_template', {image:image}));
          
          this.modify('menu_dom', function(menu) {
              menu.append(b);

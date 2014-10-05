@@ -1,4 +1,4 @@
-<script type='text/jsx' id='root'>
+<script type='text/jsx'>
 /** @jsx React.DOM */
  var TodoList = React.createClass({
      getInitialState: function() {
@@ -57,16 +57,17 @@
  });
 
  component.on('did_load', function() {
-     var root = React.renderComponent(<TodoApp />, this.outlet('root'));
-     var list = React.renderComponent(<TodoList />, this.outlet('test2'));
-
-     this.set_controller('root', root);
-     this.set_controller('list', list);
-
+     component.latch(<TodoApp />, '#entry', 'root');
+     component.latch(<TodoList />, '#list', 'list');
  });
  component.auto_load();
  
 </script>
+
+<template id='root'>
+  <div id='entry'></div>
+  <div id='list'></div>
+</template>
 
 <style type='text/css'> 
  .todoItem {

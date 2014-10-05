@@ -16,7 +16,7 @@
          var message = props['message'];
          var side = props['side'] || 'right';
          var icon = props['icon'] || 'http://genie.site44.com/graham.png';
-         var result = this.render('chat_template', {
+         var result = this.render_template('chat_template', {
              'message':message,
              'icon':icon,
              'side':side
